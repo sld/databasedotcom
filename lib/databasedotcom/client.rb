@@ -163,7 +163,7 @@ module Databasedotcom
           new_class.materialize(original_classname)
           new_class
         else
-          module_namespace.const_get(clazz)
+          module_namespace.const_get(clazz, false)
         end
       end
 
@@ -416,7 +416,7 @@ module Databasedotcom
         preceding_namespace = match[1]
         classname = match[2]
         raise ArgumentError if preceding_namespace && preceding_namespace != module_namespace.name
-        clazz = module_namespace.const_get(classname.to_sym) rescue nil
+        clazz = module_namespace.const_get(classname.to_sym, false) rescue nil
         clazz ||= self.materialize(classname)
       end
       clazz
